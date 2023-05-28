@@ -70,5 +70,6 @@ def register_plaid(api_key_name, api_key_secret):
         )
 
 
-# @app.post("/record_transaction")
-# def record_transaction()
+@app.post("/record_transaction")
+def record_transaction()
+    
