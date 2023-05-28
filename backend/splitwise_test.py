@@ -1,4 +1,4 @@
-from backend.splitwise_implementation import SplitwiseAccount
+from splitwise_implementation import SplitwiseAccount
 
 if __name__ == "__main__":
     s = SplitwiseAccount(
