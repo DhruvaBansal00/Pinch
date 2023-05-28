@@ -7,3 +7,12 @@ class Transaction:
         self.merchant = merchant
         self.transaction_time = transaction_time
         self.posted_time = posted_time
+
+    def jsonify(self):
+        return {
+            "source_entity": self.source_entity,
+            "net_balance": self.net_balance,
+            "merchant": self.merchant,
+            "transaction_time": self.transaction_time,
+            "posted_time": self.posted_time,
+        }
