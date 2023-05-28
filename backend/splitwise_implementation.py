@@ -36,8 +36,12 @@ class SplitwiseAccount(EntityInterface):
                     is_self_involved = True
             if not is_self_involved:
                 continue
-            ct = datetime.datetime.fromisoformat(expense.getCreatedAt())
-            ut = datetime.datetime.fromisoformat(expense.getUpdatedAt())
+            ct = datetime.datetime.strptime(
+                expense.getCreatedAt(), "%Y-%m-%dT%H:%M:%S%z"
+            )
+            ut = datetime.datetime.strptime(
+                expense.getUpdatedAt(), "%Y-%m-%dT%H:%M:%S%z"
+            )
             ct = ct.replace(tzinfo=pytz.utc).astimezone(self.tz)
             ut = ut.replace(tzinfo=pytz.utc).astimezone(self.tz)
             transaction = Transaction(
