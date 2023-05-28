@@ -4,7 +4,7 @@ from typing import Union
 from fastapi import FastAPI, HTTPException
 from tinydb import TinyDB, Query
 
-from .classes import Transaction
+from classes import Transaction
 
 app = FastAPI()
 DB_PATH = "db.json"
@@ -70,5 +70,5 @@ def register_plaid(api_key_name, api_key_secret):
         )
 
 
-@app.post("/record_transaction")
-def record_transaction()
+# @app.post("/record_transaction")
+# def record_transaction()
