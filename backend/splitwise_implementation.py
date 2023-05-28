@@ -39,9 +39,6 @@ class SplitwiseAccount(EntityInterface):
             ut = time.mktime(
                 time.strptime(expense.getUpdatedAt(), "%Y-%m-%dT%H:%M:%S%z")
             )
-            print(ct, ut)
-            # ct = ct.replace(tzinfo=pytz.utc).astimezone(self.tz)
-            # ut = ut.replace(tzinfo=pytz.utc).astimezone(self.tz)
             transaction = Transaction(
                 "Splitwise", eu.net_balance, expense.getDescription(), ut, ct
             )
