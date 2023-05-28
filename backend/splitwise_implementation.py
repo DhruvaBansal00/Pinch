@@ -7,20 +7,16 @@ from classes import Transaction
 
 
 class SplitwiseAccount(EntityInterface):
-    def __init__(self):
+    def __init__(self, customer_id, customer_secret, api_key):
         super().__init__()
         # Harcoding for now
-        self.sObj = Splitwise(
-            "5VroAWaqz7NV8TtdosKf3i7LgPwXzTvhnsiyQzwu",
-            "Y08bKUj2t8EhmkROq5Vs28wrTU1Ih6pELQxXKY4Z",
-            api_key="PGTAd3NRPmXjiZcK8yBKOu6iIMGpwVDKVCpPaMo0",
-        )
+        self.sObj = Splitwise(customer_id, customer_secret, api_key=api_key)
         self.id = self.sObj.getCurrentUser().getId()
         self.tz = pytz.timezone("America/Los_Angeles")
         self.balance = 0.0
 
     def get_balance(self):
-        return self.sObj.getCurrentUser()
+        return self.balance
 
     def get_transactions(self, inp_time):
         transactions = []
@@ -37,8 +33,13 @@ class SplitwiseAccount(EntityInterface):
                     is_self_involved = True
             if not is_self_involved:
                 continue
-            ct = time.strptime(expense.getCreatedAt(), "%Y-%m-%dT%H:%M:%S%z")
-            ut = time.strptime(expense.getUpdatedAt(), "%Y-%m-%dT%H:%M:%S%z")
+            ct = time.mktime(
+                time.strptime(expense.getCreatedAt(), "%Y-%m-%dT%H:%M:%S%z")
+            )
+            ut = time.mktime(
+                time.strptime(expense.getUpdatedAt(), "%Y-%m-%dT%H:%M:%S%z")
+            )
+            print(ct, ut)
             # ct = ct.replace(tzinfo=pytz.utc).astimezone(self.tz)
             # ut = ut.replace(tzinfo=pytz.utc).astimezone(self.tz)
             transaction = Transaction(
